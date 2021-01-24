@@ -1,9 +1,9 @@
 # DeadlineBot
 Simple discord bot that tracks deadlines. Made for school use.
 
-# Configuration
+### Configuration
 Modify `config.json` and fill-in the values.
 
-# Commands
+### Commands
 `!newdl <date: MM/DD/YYYY> <time: HH:00> <AM/PM> <name>` - stores a new deadline info to the database.
 `!deadlines` - shows all deadlines.
