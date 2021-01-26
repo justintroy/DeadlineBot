@@ -1,2 +1,6 @@
+config.json
+/commands/ping.js
+/commands/purge.js
+/commands/reload.js
 /node_modules
 *.sqlite
