@@ -3,7 +3,7 @@ const moment = require("moment");
 const { Events } = require("../dbObjects");
 
 
-const usageMessage = "Invalid args.\n```Usage: !newdl <date: MM/DD/YYYY> <time: HH:00> <AM/PM> <name>\nEx: !newdl 08/07/2021 7:00 PM Birthday```";
+const usageMessage = "`Invalid args.`\n```Usage: !newdl <date: MM/DD/YYYY> <time: HH:00> <AM/PM> <name>\nEx: !newdl 08/07/2021 7:00 PM Birthday```";
 const dateFormat = [
     "MM/DD/YYYY h:mm A",
     "MM/DD h:mm A",
@@ -70,7 +70,7 @@ module.exports = {
             return message.reply(eventDetails);
 
         } catch (e) {
-            if (e.name === "SequelizeUniqueConstraintError") return message.reply(`\`\`\`Name provided already exists.\`\`\``);
+            if (e.name === "SequelizeUniqueConstraintError") return message.reply(`\`Name provided already exists.\``);
 
             return message.reply(`\`\`\`Error ${e.message}\`\`\``);
         }
