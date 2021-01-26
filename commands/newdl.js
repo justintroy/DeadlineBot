@@ -7,9 +7,10 @@ const usageMessage = "Invalid args.\n```Usage: !newdl <date: MM/DD/YYYY> <time: 
 const dateFormat = [
     "MM/DD/YYYY h:mm A",
     "MM/DD h:mm A",
-    "MM/DD/YY h:mm A",
+    "MM/DD/YY h:mm A"
 ];
 const dateTimeSQLFormat = "YYYY-MM-DDTHH:mm:ss.SSSZ";
+
 
 function extractEventName(arguments) {
     const name = arguments.replace(/\d{1,2}[\-|\.|\/]\d{1,2}[\-|\.|\/]\d{2,4}/g, "");
@@ -17,11 +18,16 @@ function extractEventName(arguments) {
     return name.replace(timeToRemove, "").trim();
 }
 
-function isValidDate(datestr) {
+function isDateNotPast(datestr) {
     const unixTimestamp = Number(moment(datestr, dateFormat).format("X"));
     const unixTimestampToday = Number(moment().format("X"));
 
     return unixTimestamp > unixTimestampToday;
+}
+
+function isValidDateFormat(datestr) {
+    const arrStr = datestr.split(" ").slice(0, 3).join(" ");
+    return moment(arrStr, dateFormat, true).isValid();
 }
 
 module.exports = {
@@ -36,7 +42,8 @@ module.exports = {
         const argsStr = args.join(" ");
 
         if (!moment(argsStr, dateFormat).isValid()) return message.reply(usageMessage);
-        if (!isValidDate(argsStr)) return message.reply(usageMessage);
+        if (!isDateNotPast(argsStr)) return message.reply(usageMessage);
+        if (!isValidDateFormat(argsStr)) return message.reply(usageMessage);
 
         const eventDate = moment(argsStr, dateFormat).format(dateTimeSQLFormat);
         const eventDateReadable = moment(eventDate, dateTimeSQLFormat).format("MMMM DD, YYYY");
